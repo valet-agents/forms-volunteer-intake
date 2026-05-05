@@ -1,6 +1,6 @@
 # Forms Volunteer Intake
 
-Every volunteer form response gets read for skills and availability — then routed to the team that needs that exact help.
+Every day, reads the day's volunteer responses for skills and availability — then routes each one to the team that needs that exact help.
 
 ## Prerequisites
 - A [Google](https://google.com) account with access to the volunteer intake form (the OAuth grant must be able to read responses)

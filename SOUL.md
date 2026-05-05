@@ -244,7 +244,7 @@ Instead, on the first run:
    MEMORY.md as the seed watermark.
 4. Stop. Post nothing.
 
-The next heartbeat (5 minutes later) reads from that watermark
+The next heartbeat (a day later) reads from that watermark
 and starts posting only forward-looking responses.
 
 ## MEMORY.md Format

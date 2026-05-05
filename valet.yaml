@@ -1,26 +1,24 @@
 name: forms-volunteer-intake
 display_name: Forms Volunteer Intake
 description: >-
-  Every volunteer form response gets read for skills and
-  availability — then routed to the team that needs that exact
-  help. Posts a masked-email volunteer card to Slack within five
-  minutes of sign-up, and answers volunteer questions in Slack
-  on @mention.
+  Every day, reads new volunteer form responses for skills and
+  availability — and routes each one to the team that needs that
+  exact help. Posts a masked-email volunteer card to Slack, and
+  answers volunteer questions in Slack on @mention.
 category: nonprofit
 
 story:
   hero: "Match new volunteers to where you need them."
   subheadline: >-
-    Every volunteer form response gets read for skills and
-    availability — then routed to the team that needs that exact
-    help.
+    Every day, reads the day's volunteer responses for skills and
+    availability — then routes each one to the team that needs
+    that exact help.
   steps:
     - role: trigger
-      title: "A volunteer signs up."
+      title: "Every morning."
       body: >-
-        No webhook to wire. The agent heartbeats once a day
-        and detects new responses on your Google Form since the
-        last sweep.
+        The heartbeat fires once a day. The agent reads every
+        new response and matches volunteers to teams.
     - role: action
       title: "It reads skills and availability."
       body: >-
