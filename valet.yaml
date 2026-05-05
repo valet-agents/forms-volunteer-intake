@@ -18,7 +18,7 @@ story:
     - role: trigger
       title: "A volunteer signs up."
       body: >-
-        No webhook to wire. The agent heartbeats every 5 minutes
+        No webhook to wire. The agent heartbeats once a day
         and detects new responses on your Google Form since the
         last sweep.
     - role: action
@@ -66,5 +66,5 @@ channels:
       done_note: "Bot ready — invite it to a channel"
 
   - type: heartbeat
-    every: 5m
-    description: "Sweeps the volunteer intake Google Form every 5 minutes for newly-submitted responses."
+    every: 24h
+    description: "Sweeps the volunteer intake Google Form once a day for newly-submitted responses."

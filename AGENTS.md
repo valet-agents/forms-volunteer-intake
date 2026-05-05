@@ -9,7 +9,7 @@ This folder contains the source for a Skilled Agent originally built for the Val
 ### Channels
 
 - **slack** (slack): The agent's per-agent Slack bot. Listens for @mentions and replies in-thread, posts volunteer cards to whichever channels the bot has been invited to, and (on confirmation) DMs team leads. Slack writes use the auto-injected outbound Slack connector.
-- **heartbeat** (heartbeat): Wakes the agent every 5 minutes to sweep the volunteer intake form for new responses since the last watermark in MEMORY.md, parse them, score team matches, and post a card. Declared inline in `valet.yaml`, so it's created automatically by the dashboard setup flow.
+- **heartbeat** (heartbeat): Wakes the agent once a day to sweep the volunteer intake form for new responses since the last watermark in MEMORY.md, parse them, score team matches, and post a card. Declared inline in `valet.yaml`, so it's created automatically by the dashboard setup flow.
 
 ### Secrets
 
@@ -31,7 +31,7 @@ This agent uses the OAuth variant of Google Forms, so no API token is needed at 
 
 ## Customizing
 
-- **Change the heartbeat interval**: edit the `every` value on the `heartbeat` channel in `valet.yaml` (e.g. `2m`, `15m`), then redeploy. Faster intervals mean faster routing but more Forms API traffic.
+- **Change the heartbeat interval**: edit the `every` value on the `heartbeat` channel in `valet.yaml` (e.g. `1h`, `12h`), then redeploy. The default `24h` routes new volunteers once a day; faster intervals mean faster routing but more Forms API traffic.
 - **Tune the `TEAM_NEEDS` map**: this is the main routing knob. Add the keywords your teams actually use ("saturday", "spanish", "carpentry") so volunteers get matched on real signal rather than the team label alone. Update it as your needs change — no redeploy needed if your runtime hot-reloads env vars; otherwise redeploy.
 - **Tune team-match heuristics**: SOUL.md's *Phase 4: Match to teams* defines the scoring (preferred-team match `+3`, keyword overlap `+1`, availability-day overlap `+1`). Edit that section to make the agent's suggestions louder, quieter, or more domain-specific.
 - **Tune the smart-routing fallback**: SOUL.md's *Where to post* defines the fallback rule (no team match → post to all invited channels with a `Needs review` tag). If you'd rather hold unmatched volunteers in a single triage channel, name that channel `#team-needs-review` (or similar) and add it to `TEAM_NEEDS` so the matcher routes there explicitly.

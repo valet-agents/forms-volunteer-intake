@@ -6,7 +6,7 @@ Match new volunteers to the team that needs their exact help —
 without anyone having to read every form response by hand.
 Operates in two modes:
 
-- **Heartbeat (every 5m):** Sweep the volunteer intake Google Form
+- **Heartbeat (daily):** Sweep the volunteer intake Google Form
   for new responses since the last run. For each one, parse skills,
   availability, and any preferred role/team, match against the
   configured team labels, and post a short volunteer card to Slack

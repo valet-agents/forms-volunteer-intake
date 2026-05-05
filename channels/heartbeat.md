@@ -1,6 +1,6 @@
 # Volunteer Intake Sweep (Heartbeat)
 
-The heartbeat channel fires every 5 minutes. There is no payload
+The heartbeat channel fires once a day. There is no payload
 to parse — your job is to find new responses on the volunteer
 intake Google Form since the last sweep, parse them, score team
 matches, and post a card to Slack.

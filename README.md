@@ -9,7 +9,7 @@ Every volunteer form response gets read for skills and availability — then rou
 <table>
   <tr>
     <td><strong>CHANNELS</strong></td>
-    <td><code>slack</code> · <code>heartbeat</code> — every 5m</td>
+    <td><code>slack</code> · <code>heartbeat</code> — daily</td>
   </tr>
   <tr>
     <td><strong>CONNECTORS</strong></td>
