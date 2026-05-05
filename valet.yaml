@@ -1,0 +1,70 @@
+name: forms-volunteer-intake
+display_name: Forms Volunteer Intake
+description: >-
+  Every volunteer form response gets read for skills and
+  availability — then routed to the team that needs that exact
+  help. Posts a masked-email volunteer card to Slack within five
+  minutes of sign-up, and answers volunteer questions in Slack
+  on @mention.
+category: nonprofit
+
+story:
+  hero: "Match new volunteers to where you need them."
+  subheadline: >-
+    Every volunteer form response gets read for skills and
+    availability — then routed to the team that needs that exact
+    help.
+  steps:
+    - role: trigger
+      title: "A volunteer signs up."
+      body: >-
+        No webhook to wire. The agent heartbeats every 5 minutes
+        and detects new responses on your Google Form since the
+        last sweep.
+    - role: action
+      title: "It reads skills and availability."
+      body: >-
+        Pulls each new response, parses what the volunteer can
+        do and when they're free, and scores the top 1–2 team
+        matches.
+      catalog: google-forms
+    - role: outcome
+      title: "Routed to the team that needs them, in Slack."
+      body: >-
+        A short volunteer card lands in Slack — masked email,
+        skills, availability, and the top 1–2 team matches.
+      catalog: slack
+
+connectors:
+  - catalog: google-forms
+    description: >-
+      The Google Forms API, OAuth-authenticated. The agent reads
+      the volunteer intake form's responses to detect new
+      sign-ups, parse skills and availability, and answer ad-hoc
+      questions. Read-only — no writes back to Google Forms.
+    ui:
+      headline: "Connect Google Forms with one click."
+      blurb: >-
+        OAuth into Google — no API token to paste. The agent
+        uses your account's permissions to read responses on
+        your volunteer intake form.
+      done_note: "Google Forms connected"
+
+channels:
+  - catalog: slack
+    description: >-
+      The agent gets its own Slack bot. Invite it to whichever
+      channels you want new-volunteer cards in, and to any other
+      channel where teammates should be able to @mention it for
+      ad-hoc volunteer questions.
+    ui:
+      headline: "Give Volunteer Intake a Slack bot."
+      blurb: >-
+        The agent posts each new volunteer card to every channel
+        you invite it to. Invite it to one focused volunteers
+        channel, or several — whatever matches how your org works.
+      done_note: "Bot ready — invite it to a channel"
+
+  - type: heartbeat
+    every: 5m
+    description: "Sweeps the volunteer intake Google Form every 5 minutes for newly-submitted responses."
