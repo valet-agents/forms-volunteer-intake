@@ -7,6 +7,9 @@ description: >-
   answers volunteer questions in Slack on @mention.
 category: nonprofit
 
+example:
+  prompt: "Any new volunteers for the Saturday build?"
+
 story:
   hero: "Match new volunteers to where you need them."
   subheadline: >-
