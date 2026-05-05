@@ -19,17 +19,25 @@ matches, and post a card to Slack.
 3. For each new response (oldest first), parse name, email,
    skills, availability, and preferred team per SOUL **Phase 3**.
    Mask the email before any output: `m***@example.com`.
-4. Score team matches per SOUL **Phase 4** using the `TEAMS`
-   env var (or Slack channel naming convention if unset). Take
-   the **top 2** teams by score. Drop ties at zero. If nothing
-   scores above zero, mark the card `Needs human triage`.
+4. Score team matches per SOUL **Phase 4** using the `TEAM_NEEDS`
+   env var (a JSON map of team → keyword list), falling back to
+   `TEAMS`, then to Slack channel naming convention. Take the
+   **top 2** teams by score. Drop ties at zero. If nothing
+   scores above zero, mark the card `Needs human triage` —
+   never reject a volunteer.
 5. Compose a volunteer card per SOUL **Phase 5** — Slack
    `mrkdwn`, under 1,500 chars, masked email, top 2 suggested
    teams, link to the form response.
-6. Resolve target channels per the SOUL **Where to post** rules
-   and post one message per channel per volunteer. If a post
-   fails for a particular channel, log and continue with the
-   others — do not retry.
+6. **Smart routing — post to the matching team's channel(s)
+   only**: derive each invited channel's team label from its
+   name (strip `team-`/`vol-`/`volunteers-`/`nonprofit-`) and
+   send the card only to channels whose label matches one of
+   the suggested teams. If zero invited channels match the
+   suggested teams, fall back to posting to **every** invited
+   channel with a `Needs review — no team match` tag at the
+   top of the card. Never broadcast a matched volunteer to
+   every invited channel. If a post fails for a particular
+   channel, log and continue with the others — do not retry.
 7. Update MEMORY.md to the newest response processed (response
    id + `submitted_time`). The next fire reads from there.
 
@@ -52,10 +60,18 @@ volunteer twice.
 
 ## Where to post
 
-Per SOUL: every Slack channel the bot is a member of, one
-message per volunteer per channel. If the bot is in zero
-channels, DM the workspace install user with the volunteer card
-and a one-line invite hint.
+Per SOUL **Where to post** (smart routing):
+
+- For matched volunteers, post **only** to invited channels
+  whose name resolves to one of the top suggested teams (strip
+  `team-`/`vol-`/`volunteers-`/`nonprofit-` prefixes and match
+  case-insensitively).
+- For unmatched volunteers (no team scored above zero, or no
+  invited channel maps to any suggested team), post to **every**
+  invited channel with a `Needs review — no team match` tag.
+- If the bot is in zero channels, DM the workspace install user
+  with the volunteer card and a one-line invite hint that
+  mentions per-team channel routing.
 
 ## Skip conditions
 
